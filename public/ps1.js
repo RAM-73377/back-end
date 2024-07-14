@@ -1,4 +1,4 @@
-const form = document.getElementById('form'); // Ensure the form ID matches the HTML
+const form = document.getElementById('form'); 
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -13,7 +13,7 @@ form.addEventListener('submit', (e) => {
     domain: formData.get('domain')
   };
 
-  console.log('Form Data:', data); // Log the form data for verification
+  console.log('Form Data:', data);
 
   fetch('/create-account', {
     method: 'POST',
