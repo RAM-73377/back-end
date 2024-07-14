@@ -4,7 +4,6 @@ const path =  require('path')
 const bodyParser = require("body-parser")
 const app = express();
 app.use(express.json());
-// MySQL connection settings
 app.use(bodyParser.json())
 const db = mysql.createConnection({
   host: 'localhost',
@@ -12,9 +11,6 @@ const db = mysql.createConnection({
   password: 'S4kura#97@',
   database: 'user_accounts'
 });
-
-// Create a MySQL connection pool
-// const pool = mysql.createPool(dbConfig);
 db.connect((err) => {
   if(err){
     console.log("error db")
@@ -37,7 +33,6 @@ app.get("/",(req,res)=>{
 app.post('/create-account', (req, res) => {
   const { firstName, lastName, email, password, contactNumber, domain } = req.body;
 
-  // Check if email or contact number already exists
   const checkQuery = 'SELECT COUNT(*) AS count FROM users WHERE email = ? OR contactNumber = ?';
   db.query(checkQuery, [email, contactNumber], (err, results) => {
     if (err) {
@@ -52,7 +47,6 @@ app.post('/create-account', (req, res) => {
       return;
     }
     
-    // Insert new user if email and contact number are unique
     const insertQuery = 'INSERT INTO users (firstName, lastName, email, password, contactNumber, domain) VALUES (?, ?, ?, ?, ?, ?)';
     db.query(insertQuery, [firstName, lastName, email, password, contactNumber, domain], (err, results) => {
       if (err) {
